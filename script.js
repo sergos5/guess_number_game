@@ -30,14 +30,12 @@ let guessNumber = function(data) {
             } else if (num>data) {
                 foo(less + n);
             } else {
-                let a = confirm(congratulation);
-                if (a) {
+                if (confirm(congratulation)) {
                     guessNumber(randNum());
                 }
             }
-        } else  {
-            let a = confirm(endAtt);
-            if (a) {
+        } else  {           
+            if (confirm(endAtt)) {
                 guessNumber(randNum());
             }
         }      
