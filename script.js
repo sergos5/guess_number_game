@@ -32,11 +32,15 @@ let guessNumber = function(data) {
             } else {
                 if (confirm(congratulation)) {
                     guessNumber(randNum());
+                } else { 
+                    alert (end);
                 }
             }
         } else  {           
             if (confirm(endAtt)) {
                 guessNumber(randNum());
+            } else {
+                alert (end);
             }
         }      
     };
