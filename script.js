@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 //Загадывание случайного числа
 
@@ -8,11 +8,23 @@ let more = 'Загаданное число больше, осталось по�
 let end = 'Игра окончена';
 let congratulation = 'Поздравляю, Вы угадали!!! Хотели бы сыграть еще?'; 
 let endAtt = 'Попытки закончились, хотите сыграть еще?';
-let err = 'Введи число!';
+let err = 'Введи число от 1 до 100! ...а между тем попыток осталось - ';
 
 
 let randNum = function () {
-    return Math.round(Math.random()*100);
+    return Math.round(Math.random()*99+1);
+};
+
+const isNumber = function (num) {
+    return !isNaN(parseFloat(num)) && isFinite(num);
+};
+
+let playAgain = function (msg) {
+    if (confirm (msg)) {
+        guessNumber(randNum());
+    } else {
+        alert (end);
+    }
 };
 
 let guessNumber = function(data) {  
@@ -20,33 +32,18 @@ let guessNumber = function(data) {
     let foo = function(message) {   
         n--;    
         if (n>=0) {
-            let num = prompt(message);             
-            if (isNaN(num)) {
-                foo(err);
-            } else if (num === null) {
+            let num = prompt(message);
+            if (num === null) {
                 alert (end);
-            } else if (num<data) {
-                foo(more + n); 
-            } else if (num>data) {
-                foo(less + n);
-            } else {
-                if (confirm(congratulation)) {
-                    guessNumber(randNum());
-                } else { 
-                    alert (end);
-                }
-            }
-        } else  {           
-            if (confirm(endAtt)) {
-                guessNumber(randNum());
-            } else {
-                alert (end);
-            }
-        }      
+            } else if (isNumber(num)) { 
+                if (num < data) foo(more + n); 
+                if (num > data) foo(less + n);
+                if (num == data) playAgain(congratulation);
+            } else foo(err + n);
+        } else playAgain(endAtt);      
     };
     foo(guess);
 };
 
 guessNumber(randNum());
-
 
